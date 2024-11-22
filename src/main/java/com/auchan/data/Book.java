@@ -2,6 +2,7 @@ package com.auchan.data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -9,6 +10,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+
 
 @Entity
 
@@ -17,8 +23,17 @@ public class Book implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
+	@ManyToMany
+	@JoinTable(name = "book_category",
+			   joinColumns = @JoinColumn(name = "idBook"),
+			   inverseJoinColumns = @JoinColumn(name = "idCategory"))
+	private Set<Category> categories;
+	
+	@ManyToOne
+	@JoinColumn(name = "authorId")
+	private Author author;
 
 	// Attributs
 	private Long idBook;

@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.auchan.model.Author;
+import com.auchan.data.Author;
 import com.auchan.service.AuthorService;
 
 @RestController

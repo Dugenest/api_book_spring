@@ -1,11 +1,14 @@
-package com.auchan.model;
+package com.auchan.data;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Author implements Serializable {
@@ -17,8 +20,11 @@ public class Author implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
+	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+	private Set<Book> books;
+	
 	private Long authorId;
-
 	private String authorName;
 	private String authorFirstname;
 	private String authorEmail;

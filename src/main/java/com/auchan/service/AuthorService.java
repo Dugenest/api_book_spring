@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.auchan.data.Author;
 import com.auchan.data.AuthorRepository;
-import com.auchan.model.Author;
 
 @Service
 public class AuthorService {

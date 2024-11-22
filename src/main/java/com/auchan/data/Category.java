@@ -1,11 +1,13 @@
 package com.auchan.data;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 
@@ -14,7 +16,10 @@ public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
+	@ManyToMany(mappedBy = "categories")
+	private Set<Book> books;
 	
 	// Attributs
 	private Long idCategory;
