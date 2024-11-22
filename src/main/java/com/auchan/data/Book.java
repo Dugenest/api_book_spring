@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,66 +14,81 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 
-
 @Entity
-
 public class Book implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
-	@ManyToMany
-	@JoinTable(name = "book_category",
-			   joinColumns = @JoinColumn(name = "idBook"),
-			   inverseJoinColumns = @JoinColumn(name = "idCategory"))
-	private Set<Category> categories;
-	
-	@ManyToOne
-	@JoinColumn(name = "authorId")
-	private Author author;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idBook;
 
-	// Attributs
-	private Long idBook;
-	private String titleBook;
-	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private Date dateBook;
+    private String titleBook;
 
-	// Constructeur
-	public Book() {
-	}
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date dateBook;
 
-	// Getters et Setters
-	public Long getIdBook() {
-		return idBook;
-	}
+    // ManyToOne relation with Author
+    @ManyToOne
+    @JoinColumn(name = "authorId")  // Foreign key to Author
+    private Author author;
 
-	public void setIdBook(Long idBook) {
-		this.idBook = idBook;
-	}
+    // ManyToMany relation with Category
+    @ManyToMany
+    @JoinTable(
+        name = "book_category",
+        joinColumns = @JoinColumn(name = "idBook"),
+        inverseJoinColumns = @JoinColumn(name = "idCategory")
+    )
+    private Set<Category> categories;
 
-	public String getTitleBook() {
-		return titleBook;
-	}
+    // Constructors, Getters, Setters, toString
+    public Book() {}
 
-	public void setTitleBook(String titleBook) {
-		this.titleBook = titleBook;
-	}
+    public Long getIdBook() {
+        return idBook;
+    }
 
-	public Date getDateBook() {
-		return dateBook;
-	}
+    public void setIdBook(Long idBook) {
+        this.idBook = idBook;
+    }
 
-	public void setDateBook(Date dateBook) {
-		this.dateBook = dateBook;
-	}
+    public String getTitleBook() {
+        return titleBook;
+    }
 
-	// Méthode toString
+    public void setTitleBook(String titleBook) {
+        this.titleBook = titleBook;
+    }
+
+    public Date getDateBook() {
+        return dateBook;
+    }
+
+    public void setDateBook(Date dateBook) {
+        this.dateBook = dateBook;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
 	@Override
 	public String toString() {
-		return "Book [idBook=" + idBook + ", titleBook=" + titleBook + ", dateBook=" + dateBook + "]";
+		return "Book [idBook=" + idBook + ", titleBook=" + titleBook + ", dateBook=" + dateBook + ", author=" + author
+				+ ", categories=" + categories + "]";
 	}
 
 }

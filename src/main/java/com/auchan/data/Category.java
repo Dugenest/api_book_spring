@@ -2,7 +2,6 @@ package com.auchan.data;
 
 import java.io.Serializable;
 import java.util.Set;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,52 +9,41 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 
 @Entity
-
 public class Category implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
-	@ManyToMany(mappedBy = "categories")
-	private Set<Book> books;
-	
-	// Attributs
-	private Long idCategory;
-	private String nameCategory;
-	
-	
-	// Constructeur
-	public Category() {
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idCategory;
 
+    private String nameCategory;
 
-	// Getters et Setters
-	public Long getIdCategory() {
-		return idCategory;
-	}
+    // ManyToMany relation with Book
+    @ManyToMany(mappedBy = "categories")
+    private Set<Book> books;
 
+    // Constructors, Getters, Setters, toString
+    public Category() {}
 
-	public void setIdCategory(Long idCategory) {
-		this.idCategory = idCategory;
-	}
+    public Long getIdCategory() {
+        return idCategory;
+    }
 
+    public void setIdCategory(Long idCategory) {
+        this.idCategory = idCategory;
+    }
 
-	public String getNameCategory() {
-		return nameCategory;
-	}
+    public String getNameCategory() {
+        return nameCategory;
+    }
 
+    public void setNameCategory(String nameCategory) {
+        this.nameCategory = nameCategory;
+    }
 
-	public void setNameCategory(String nameCategory) {
-		this.nameCategory = nameCategory;
-	}
-
-
-	// Méthode toString
-	@Override
-	public String toString() {
-		return "Category [idCategory=" + idCategory + ", nameCategory=" + nameCategory + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "Category [idCategory=" + idCategory + ", nameCategory=" + nameCategory + "]";
+    }
 }

@@ -2,7 +2,6 @@ package com.auchan.data;
 
 import java.io.Serializable;
 import java.util.Set;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,69 +12,64 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class Author implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
-	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-	private Set<Book> books;
-	
-	private Long authorId;
-	private String authorName;
-	private String authorFirstname;
-	private String authorEmail;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long authorId;
 
-	public Author() {
+    private String authorName;
+    private String authorFirstname;
+    private String authorEmail;
 
-	}
+    // OneToMany relation with Book
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    private Set<Book> books;
 
-	public Author(String authorName, String authorFirstname, String authorEmail) {
-		super();
-		this.authorName = authorName;
-		this.authorFirstname = authorFirstname;
-		this.authorEmail = authorEmail;
-	}
+    // Constructors, Getters, Setters, toString
+    public Author() {}
 
-	public Long getAuthorId() {
-		return authorId;
-	}
+    public Author(String authorName, String authorFirstname, String authorEmail) {
+        this.authorName = authorName;
+        this.authorFirstname = authorFirstname;
+        this.authorEmail = authorEmail;
+    }
 
-	public void setAuthorId(Long authorId) {
-		this.authorId = authorId;
-	}
+    public Long getAuthorId() {
+        return authorId;
+    }
 
-	public String getAuthorName() {
-		return authorName;
-	}
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
+    }
 
-	public void setAuthorName(String authorName) {
-		this.authorName = authorName;
-	}
+    public String getAuthorName() {
+        return authorName;
+    }
 
-	public String getAuthorFirstname() {
-		return authorFirstname;
-	}
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
 
-	public void setAuthorFirstname(String authorFirstname) {
-		this.authorFirstname = authorFirstname;
-	}
+    public String getAuthorFirstname() {
+        return authorFirstname;
+    }
 
-	public String getAuthorEmail() {
-		return authorEmail;
-	}
+    public void setAuthorFirstname(String authorFirstname) {
+        this.authorFirstname = authorFirstname;
+    }
 
-	public void setAuthorEmail(String authorEmail) {
-		this.authorEmail = authorEmail;
-	}
+    public String getAuthorEmail() {
+        return authorEmail;
+    }
 
-	@Override
-	public String toString() {
-		return "Author [authorId=" + authorId + ", authorName=" + authorName + ", authorFirstname=" + authorFirstname
-				+ ", authorEmail=" + authorEmail + "]";
-	}
+    public void setAuthorEmail(String authorEmail) {
+        this.authorEmail = authorEmail;
+    }
 
+    @Override
+    public String toString() {
+        return "Author [authorId=" + authorId + ", authorName=" + authorName + ", authorFirstname=" + authorFirstname
+                + ", authorEmail=" + authorEmail + "]";
+    }
 }
