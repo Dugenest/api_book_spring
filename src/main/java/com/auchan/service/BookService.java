@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.auchan.data.Book;
 import com.auchan.data.BookRepository;
-
+import com.auchan.exception.BookNotFoundException;
 
 @Service
 public class BookService {
@@ -17,28 +17,41 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
+    // Obtenir tous les livres
     public List<Book> getAllBooks() {
         return (List<Book>) bookRepository.findAll();
     }
 
-    public Book getBookById(Long id) {
-        return bookRepository.findById(id).orElseThrow(() ->
-                new RuntimeException("Book not found with id: " + id));
+    // Vérifie si un livre existe par ID
+    public boolean existsById(Long id) {
+        return bookRepository.existsById(id);
     }
 
+    // Ajouter un livre
     public Book addBook(Book book) {
         return bookRepository.save(book);
     }
 
-    public Book updateBook(Long id, Book bookDetails) {
-        Book book = getBookById(id);
-        book.setTitleBook(bookDetails.getTitleBook());
-      
-        return bookRepository.save(book);
+    // Obtenir un livre par ID
+    public Book getBookById(Long id) {
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException("Book not found with id: " + id));
     }
 
+    // Mettre à jour un livre existant
+    public Book updateBook(Long id, Book bookDetails) {
+        Book existingBook = getBookById(id);
+
+        // Mettre à jour les champs
+        existingBook.setTitleBook(bookDetails.getTitleBook());
+        existingBook.setDateBook(bookDetails.getDateBook());
+       
+        return bookRepository.save(existingBook);
+    }
+
+    // Supprimer un livre
     public void deleteBook(Long id) {
-        Book book = getBookById(id);
-        bookRepository.delete(book);
+        Book existingBook = getBookById(id);
+        bookRepository.delete(existingBook);
     }
 }

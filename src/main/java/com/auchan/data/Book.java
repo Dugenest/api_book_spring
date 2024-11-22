@@ -1,6 +1,9 @@
 package com.auchan.data;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,7 +23,9 @@ public class Book implements Serializable {
 	// Attributs
 	private Long idBook;
 	private String titleBook;
-	private int dateBook;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date dateBook;
 
 	// Constructeur
 	public Book() {
@@ -43,11 +48,11 @@ public class Book implements Serializable {
 		this.titleBook = titleBook;
 	}
 
-	public int getDateBook() {
+	public Date getDateBook() {
 		return dateBook;
 	}
 
-	public void setDateBook(int dateBook) {
+	public void setDateBook(Date dateBook) {
 		this.dateBook = dateBook;
 	}
 
